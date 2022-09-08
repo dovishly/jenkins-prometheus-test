@@ -8,7 +8,7 @@ pipeline {
                 script {
                     steps.echo('Hello World')
                     Prom prom = new Prom()
-                    prom.send_message("http://localhost:9090/metrics/job/foobar/1", "foobar 1")
+                    prom.send_message("http://localhost:8080/prometheus", "foobar 1")
                 }
             }
         }
