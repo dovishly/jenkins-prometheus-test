@@ -6,7 +6,7 @@ pipeline {
         stage('Stage 1') {
             steps {
                 print('Hello World')
-                script {
+                scripts {
                     send_message("http://localhost:9090/metrics/job/foobar/1", "foobar 1")
                 }
             }
