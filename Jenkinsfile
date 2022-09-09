@@ -23,5 +23,14 @@ pipeline {
                 }
             }
         }
+
+        post {
+            always {
+                script{
+                    int dur = steps.currentBuild.duration
+                    steps.sh("echo 'build_duration ${dur}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/some_job")
+                }
+            }
+        }
     }
 }
