@@ -34,9 +34,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    int randClient = Math.abs(new Random().nextInt() % clients.size() - 1)
-                    int randEnv = Math.abs(new Random().nextInt() % envs.size() - 1)
-                    steps.sh("echo 'some_metrics{env=\"${env[randEnv]}\",client=\"${clients[randClient]}\' ${parsedVersion}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
+                    int randClient = Math.abs(new Random().nextInt() % clients.size())
+                    int randEnv = Math.abs(new Random().nextInt() % envs.size() )
+                    steps.sh("echo 'some_metrics{env=\"${env.get(randEnv)}\",client=\"${clients.get(randClient)}\' ${parsedVersion}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
                     steps.sh("echo '' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
     
     //${clients[randClient]}_${envs[randEnv]}_metrics ${version}
