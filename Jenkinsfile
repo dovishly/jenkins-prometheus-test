@@ -2,6 +2,9 @@
 
 pipeline {
     agent any 
+    options {
+        disableConcurrentBuilds()
+    }
     stages {
         stage('Stage 1') {
             steps {
