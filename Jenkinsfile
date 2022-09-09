@@ -1,8 +1,8 @@
 @Library('shared-lib@shared-lib') _
 
-List envs = ["dev", "clientqa", "prod"]
-List clients = ["client1", "client2", "client3"]
-String version = "1.0.0-RC4"
+List envs = ["dev", "qa", "prod"]
+List clients = ["client1", "client2", "client3", "client4", "client5", "client6"]
+List version = ["1.0.0-RC4", "10.2.0-RC1", "3.4.0-RC8", "legacy"]
 float parsedVersion = Float.parseFloat(version.replace('.', '').replace("-",".").replace("RC",""))
 pipeline {
     agent any 
@@ -36,7 +36,13 @@ pipeline {
                 script {
                     int randClient = Math.abs(new Random().nextInt() % clients.size())
                     int randEnv = Math.abs(new Random().nextInt() % envs.size() )
-                    steps.sh("echo 'some_metrics{env=\"${envs.get(randEnv)}\",client=\"${clients.get(randClient)}\"} ${parsedVersion}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
+                    int randVer = Math.abs(new Random().nextInt() % version.size() )
+                    steps.sh("echo 'some_metrics{env=\"${envs.get(randEnv)}\",client=\"${clients.get(randClient)}\",version=\"${version.get(randVer)}\"} 1' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
+                    steps.sh("echo 'some_metrics{env=\"${envs.get(randEnv)}\",client=\"${clients.get(randClient)}\",version=\"${version.get(randVer)}\"} 1' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
+                    steps.sh("echo 'some_metrics{env=\"${envs.get(randEnv)}\",client=\"${clients.get(randClient)}\",version=\"${version.get(randVer)}\"} 1' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
+                    steps.sh("echo 'some_metrics{env=\"${envs.get(randEnv)}\",client=\"${clients.get(randClient)}\",version=\"${version.get(randVer)}\"} 1' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
+                    steps.sh("echo 'some_metrics{env=\"${envs.get(randEnv)}\",client=\"${clients.get(randClient)}\",version=\"${version.get(randVer)}\"} 1' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
+                    
                     //steps.sh("echo '' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
     
     //${clients[randClient]}_${envs[randEnv]}_metrics ${version}
