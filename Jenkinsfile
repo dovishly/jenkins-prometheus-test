@@ -3,7 +3,7 @@
 List envs = ["dev", "clientqa", "prod"]
 List clients = ["client1", "client2", "client3"]
 String version = "1.0.0-RC4"
-
+float parsedVersion = Float.parseFloat(ver.replace('.', '').replace("-",".").replace("RC",""))
 pipeline {
     agent any 
     options {
@@ -36,10 +36,11 @@ pipeline {
                 script {
                     int randClient = Math.abs(new Random().nextInt() % clients.size())
                     int randEnv = Math.abs(new Random().nextInt() % envs.size())
-                    steps.sh("echo '${clients[randClient]}_${envs[randEnv]}_metrics ${version}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
-                    steps.sh("echo '\'${version}_metrics\' ${clients[randClient]}_${envs[randEnv]}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
+                    steps.sh("echo 'some_metrics{env=\"${env[randEnv]}\",client=\"${clients[randClient]}\' ${parsedVersion}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
+                    steps.sh("echo '' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
     
-
+    //${clients[randClient]}_${envs[randEnv]}_metrics ${version}
+    //${version}_metrics ${clients[randClient]}_${envs[randEnv]}
                     //Prom prom = new Prom()
                     //prom.send_message("http://host.docker.internal:9091/metrics/job/some_job", "foobar 1")
                 }
