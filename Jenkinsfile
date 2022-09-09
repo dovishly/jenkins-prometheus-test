@@ -36,8 +36,8 @@ pipeline {
                 script {
                     int randClient = Math.abs(new Random().nextInt() % clients.size())
                     int randEnv = Math.abs(new Random().nextInt() % envs.size())
-                    steps.sh("echo '${randClient}_${randEnv}_metrics ${version}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/some_job")
-                    steps.sh("echo '${version}_metrics ${randClient}-${randEnv}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/some_job")
+                    steps.sh("echo '${randClient}_${randEnv}_metrics ${version}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
+                    steps.sh("echo '${version}_metrics ${randClient}-${randEnv}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
     
 
                     //Prom prom = new Prom()
@@ -50,7 +50,7 @@ pipeline {
             always {
                     script{
                         int dur = this.currentBuild.duration
-                        steps.sh("echo 'build_duration ${dur}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
+                        steps.sh("echo 'build_duration ${dur}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/some_job")
                     }
             }
         }
