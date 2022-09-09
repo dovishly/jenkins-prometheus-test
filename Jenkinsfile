@@ -20,7 +20,7 @@ pipeline {
         stage('Stage 2') {
             steps {
                 script {
-                    steps.sleep(Math.abs(new Random().nextInt() % 10) + 1)
+                    steps.sleep(Math.abs(new Random().nextInt() % 180) + 1)
                     //Prom prom = new Prom()
                     //prom.send_message("http://host.docker.internal:9091/metrics/job/some_job", "foobar 1")
                 }
