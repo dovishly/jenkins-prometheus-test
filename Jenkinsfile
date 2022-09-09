@@ -36,8 +36,8 @@ pipeline {
                 script {
                     int randClient = Math.abs(new Random().nextInt() % clients.size())
                     int randEnv = Math.abs(new Random().nextInt() % envs.size())
-                    steps.sh("echo '${randClient}_${randEnv}_metrics ${version}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
-                    steps.sh("echo '${version}_metrics ${randClient}-${randEnv}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
+                    steps.sh("echo '${clients[randClient]}_${envs[randEnv]}_metrics ${version}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
+                    steps.sh("echo '${version}_metrics ${clients[randClient]}-${envs[randEnv]}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
     
 
                     //Prom prom = new Prom()
