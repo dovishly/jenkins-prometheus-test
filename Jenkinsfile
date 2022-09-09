@@ -1,5 +1,9 @@
 @Library('shared-lib@shared-lib') _
 
+List envs = ["dev", "clientqa", "prod"]
+List clients = ["client1", "client2", "client3"]
+String version = "1.0.0-RC4"
+
 pipeline {
     agent any 
     options {
@@ -21,6 +25,21 @@ pipeline {
             steps {
                 script {
                     steps.sleep(Math.abs(new Random().nextInt() % 180) + 1)
+                    //Prom prom = new Prom()
+                    //prom.send_message("http://host.docker.internal:9091/metrics/job/some_job", "foobar 1")
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    int randClient = Math.abs(new Random().nextInt() % clients.size())
+                    int randEnv = Math.abs(new Random().nextInt() % envs.size())
+                    steps.sh("echo '${randClient}_${randEnv}_metrics ${version}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/some_job")
+                    steps.sh("echo '${version}_metrics ${randClient}-${randEnv}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/some_job")
+    
+
                     //Prom prom = new Prom()
                     //prom.send_message("http://host.docker.internal:9091/metrics/job/some_job", "foobar 1")
                 }
