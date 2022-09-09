@@ -6,5 +6,7 @@ def send_message(String url, String msg) {
     def postRC = pushGateway.getResponseCode()
     if (!postRC.equals(200)) {
         println("Unable to send metrics")
+        println(postRC.toString())
+        println(pushGateway.getResponseMessage())
     }
 }
