@@ -3,7 +3,7 @@
 List envs = ["dev", "clientqa", "prod"]
 List clients = ["client1", "client2", "client3"]
 String version = "1.0.0-RC4"
-float parsedVersion = Float.parseFloat(ver.replace('.', '').replace("-",".").replace("RC",""))
+float parsedVersion = Float.parseFloat(version.replace('.', '').replace("-",".").replace("RC",""))
 pipeline {
     agent any 
     options {
