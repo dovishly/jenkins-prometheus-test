@@ -7,7 +7,7 @@ pipeline {
             steps {
                 script {
                     steps.echo('Hello World')
-                    steps.sh("echo 'some_metrics 3.14' | curl --data-binary @- http://hopeful_einstein:9091/metrics/job/some_job")
+                    steps.sh("echo 'some_metrics 3.14' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/some_job")
                     //Prom prom = new Prom()
                     //prom.send_message("http://host.docker.internal:9091/metrics/job/some_job", "foobar 1")
                 }
