@@ -1,4 +1,4 @@
-def send_message(String url, String message) {
+def send_message(String url, String msg) {
     def pushGateway = new URL(url).openConnection()
     pushGateway.setRequestMethod("POST")
     pushGateway.setDoOutput(true);
