@@ -10,3 +10,23 @@ def send_message(String url, String msg) {
         println(pushGateway.getResponseMessage())
     }
 }
+
+def loki() {
+    def props = readProperties file: 'secrets.properties'
+    def url = props.HOSTNAME
+    def msg = "        \"streams\": [\n" +
+            "            {\n" +
+            "                \"stream\": {\n" +
+            "                    \"job\": \"test\",\n" +
+            "                    \"instance\": \"test\"\n" +
+            "                },\n" +
+            "                \"values\": [\n" +
+            "                    [\"${System.nanoTime()}\", \"test\"]\n" +
+            "                ]\n" +
+            "            }\n" +
+            "        ]\n" +
+            "    }"
+
+    sh ("curl -v -H -XPOST -s \"Content-Type: application/json\" -d ${url} --data-raw ${msg}")
+
+}
