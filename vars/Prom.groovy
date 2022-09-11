@@ -12,8 +12,6 @@ def send_message(String url, String msg) {
 }
 
 def loki() {
-    def props = readProperties file: 'secrets.properties'
-    def url = props.HOSTNAME
     def msg = "        \"streams\": [\n" +
             "            {\n" +
             "                \"stream\": {\n" +
@@ -27,6 +25,6 @@ def loki() {
             "        ]\n" +
             "    }"
 
-    sh ("curl -v -H -XPOST -s \"Content-Type: application/json\" -d ${url} --data-raw ${msg}")
+    sh ("curl -v -H -XPOST -s \"Content-Type: application/json\" -d ${HOSTNAME} --data-raw ${msg}")
 
 }
