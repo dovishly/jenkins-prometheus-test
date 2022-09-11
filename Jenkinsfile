@@ -37,7 +37,7 @@ pipeline {
                     for (int i = 0; i < clients.size(); i++) {
                         
                 
-                    int randClient = Math.abs(new Random().nextInt() % clients.size())
+                    int randClient = clients[i]
                     int randEnv = Math.abs(new Random().nextInt() % envs.size() )
                     int randVer = Math.abs(new Random().nextInt() % version.size() )
                     steps.sh("echo '${clients.get(randClient)}_metrics{env=\"${envs.get(randEnv)}\",client=\"${clients.get(randClient)}\",version=\"${version.get(randVer)}\"} ${currentBuild.startTimeInMillis}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
