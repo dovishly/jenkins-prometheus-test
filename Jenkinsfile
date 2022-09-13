@@ -1,6 +1,6 @@
 @Library('shared-lib@shared-lib') _
 
-List envs = ["dev", "qa", "prod"]
+List envs = ["dev", "qa", "devqa", "sit", "uat", "prod"]
 List clients = ["client1", "client2", "client3", "client4", "client5", "client6"]
 List version = ["1.0.0-RC4", "10.2.0-RC1", "3.4.0-RC8", "legacy"]
 //float parsedVersion = Float.parseFloat(version.replace('.', '').replace("-",".").replace("RC",""))
