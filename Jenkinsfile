@@ -43,7 +43,7 @@ pipeline {
                         
                     }
                     // def jenks = steps.sh(script: "curl -GET https://www.jenks.com/jenkins/job/playground/job/test/job/main/142/timestamps/", returnStdout: true)
-                    println("jenks:\n" + jenks)
+                   
                     def jobName = "jobName"
                     if (this.env.JOB_NAME != null || this.env.JOB_NAME != "") {
                         jobName = this.env.JOB_NAME
