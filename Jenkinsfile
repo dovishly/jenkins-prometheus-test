@@ -70,7 +70,7 @@ pipeline {
             always {
                     script{
                         int dur = this.currentBuild.duration
-                        steps.sh("echo 'build_duration ${dur}' | curl --data-binary @- http://host.docker.internal:9092/metrics/job/some_job")
+                        steps.sh("echo 'build_duration ${dur}' | curl --data-binary @- http://host.docker.internal:9092/metrics/")
                     }
             }
         }
