@@ -49,11 +49,11 @@ pipeline {
                         jobName = this.env.JOB_NAME
                     }
                     def mytime = Math.abs(new Random().nextInt() % 180) + 1
-                    steps.sh("echo '${clients.get(0)}_metrics{env=\"${envs.get(0)}\",client=\"${clients.get(0)}\",version=\"${version.get(0)},honeycombVersion=4.1.0\"} ${this.currentBuild.startTimeInMillis}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
-                    steps.sh("echo '${clients.get(1)}_metrics{env=\"${envs.get(1)}\",client=\"${clients.get(1)}\",version=\"${version.get(1)}\",honeycombVersion=\"5.0.0\", jenkinsURL=\"${this.env.JOB_NAME}\"} ${mytime}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
+                    steps.sh("echo '${clients.get(0)}_2_metrics{env=\"${envs.get(0)}\",client=\"${clients.get(0)}\",version=\"${version.get(0)},honeycombVersion=4.1.0\"} ${this.currentBuild.startTimeInMillis}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
+                    steps.sh("echo '${clients.get(1)}_2_metrics{env=\"${envs.get(1)}\",client=\"${clients.get(1)}\",version=\"${version.get(1)}\",honeycombVersion=\"5.0.0\", jenkinsURL=\"${this.env.JOB_NAME}\"} ${mytime}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
                     
-                    steps.sh("echo 'failed_builds{env=\"${envs.get(1)}\",client=\"${clients.get(2)}\",version=\"${version.get(2)}\",honeycombVersion=\"4.8.0\", jenkinsURL=\"${this.env.JOB_NAME}\",\"jenkinsBuildUrl=\"${this.env.BUILD_URL}\"} 1' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
-                    steps.sh("echo 'failed_builds{env=\"${envs.get(5)}\",client=\"${clients.get(2)}\",version=\"${version.get(0)}\",honeycombVersion=\"4.8.0\", jenkinsURL=\"${this.env.JOB_NAME}\",\"jenkinsBuildUrl=\"${this.env.BUILD_URL}\"} 1' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
+                    steps.sh("echo 'failed_2_builds{env=\"${envs.get(1)}\",client=\"${clients.get(2)}\",version=\"${version.get(2)}\",honeycombVersion=\"4.8.0\", jenkinsURL=\"${this.env.JOB_NAME}\"} 1' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
+                    steps.sh("echo 'failed_2_builds{env=\"${envs.get(4)}\",client=\"${clients.get(2)}\",version=\"${version.get(0)}\",honeycombVersion=\"4.8.0\", jenkinsURL=\"${this.env.JOB_NAME}\"} 1' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
                     //steps.sh("echo 'some_metrics{env=\"${envs.get(randEnv)}\",client=\"${clients.get(randClient)}\",version=\"${version.get(randVer)}\"} ${currentBuild.startTimeInMillis}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
 
                     //steps.sh("echo '' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
