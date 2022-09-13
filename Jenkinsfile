@@ -41,7 +41,8 @@ pipeline {
                     // steps.sh("echo '${clients.get(i)}_metrics{env=\"${envs.get(i)}\",client=\"${clients.get(i)}\",version=\"${version.get(randVer)}\"} ${this.currentBuild.startTimeInMillis}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
                         
                     }
-                    def jenks = steps.sh(script: "curl -GET ${this.env.BUILD_URL}timestamps/", returnStdout: true)
+                    def jenks = steps.sh(script: "curl -GET https://www.jenks.com/jenkins/job/playground/job/test/job/main/142/timestamps/", returnStdout: true)
+                    println("jenks:\n" + jenks)
                     def jobName = "jobName"
                     if (this.env.JOB_NAME != null || this.env.JOB_NAME != "") {
                         jobName = this.env.JOB_NAME
