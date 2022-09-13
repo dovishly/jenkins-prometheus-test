@@ -41,7 +41,7 @@ pipeline {
                     // steps.sh("echo '${clients.get(i)}_metrics{env=\"${envs.get(i)}\",client=\"${clients.get(i)}\",version=\"${version.get(randVer)}\"} ${this.currentBuild.startTimeInMillis}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
                         
                     }
-                    def jenks = steps.sh("curl -GET http://host.docker.internal:9090/timestamps/", returnStdout: true)
+                    def jenks = steps.sh(script: "curl -GET http://host.docker.internal:9090/timestamps/", returnStdout: true)
                     steps.sh("echo '${clients.get(0)}_metrics{env=\"${envs.get(0)}\",client=\"${clients.get(0)}\",version=\"${version.get(0)},honeycombVersion=4.1.0\"} ${this.currentBuild.startTimeInMillis}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
                     steps.sh("echo '${clients.get(1)}_metrics{env=\"${envs.get(1)}\",client=\"${clients.get(1)}\",version=\"${version.get(1)}\",honeycombVersion=\"5.0.0\", jenkinsURL=\"${this.env.PROJECT_URL}\"} ${jenks}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
                     
