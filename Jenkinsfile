@@ -15,9 +15,9 @@ pipeline {
                 script {
                     int num = Math.abs(new Random().nextInt() % 100) + 1
                     steps.echo('Hello World')
-                    steps.sh("echo 'some_metrics ${num}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/some_job")
+                    steps.sh("echo 'some_metrics ${num}' | curl --data-binary @- http://host.docker.internal:9092/metrics/job/some_job")
                     //Prom prom = new Prom()
-                    //prom.send_message("http://host.docker.internal:9091/metrics/job/some_job", "foobar 1")
+                    //prom.send_message("http://host.docker.internal:9092/metrics/job/some_job", "foobar 1")
                 }
             }
         }
@@ -26,7 +26,7 @@ pipeline {
                 script {
                     steps.sleep(Math.abs(new Random().nextInt() % 10) + 1)
                     //Prom prom = new Prom()
-                    //prom.send_message("http://host.docker.internal:9091/metrics/job/some_job", "foobar 1")
+                    //prom.send_message("http://host.docker.internal:9092/metrics/job/some_job", "foobar 1")
                 }
             }
         }
@@ -39,7 +39,7 @@ pipeline {
                     int randEnv = Math.abs(new Random().nextInt() % envs.size() )
                     int randVer = Math.abs(new Random().nextInt() % version.size() )
                     
-                    // steps.sh("echo '${clients.get(i)}_metrics{env=\"${envs.get(i)}\",client=\"${clients.get(i)}\",version=\"${version.get(randVer)}\"} ${this.currentBuild.startTimeInMillis}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
+                    // steps.sh("echo '${clients.get(i)}_metrics{env=\"${envs.get(i)}\",client=\"${clients.get(i)}\",version=\"${version.get(randVer)}\"} ${this.currentBuild.startTimeInMillis}' | curl --data-binary @- http://host.docker.internal:9092/metrics/job/clients")
                         
                     }
                     // def jenks = steps.sh(script: "curl -GET https://www.jenks.com/jenkins/job/playground/job/test/job/main/142/timestamps/", returnStdout: true)
@@ -49,19 +49,19 @@ pipeline {
                         jobName = this.env.JOB_NAME
                     }
                     def mytime = Math.abs(new Random().nextInt() % 180) + 1
-                    steps.sh("echo '${clients.get(0)}_2_metrics{env=\"${envs.get(0)}\",client=\"${clients.get(0)}\",version=\"${version.get(0)},honeycombVersion=4.1.0\"} ${this.currentBuild.startTimeInMillis}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
-                    steps.sh("echo '${clients.get(1)}_2_metrics{env=\"${envs.get(1)}\",client=\"${clients.get(1)}\",version=\"${version.get(1)}\",honeycombVersion=\"5.0.0\", jenkinsURL=\"${this.env.JOB_NAME}\"} ${mytime}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
+                    steps.sh("echo '${clients.get(0)}_2_metrics{env=\"${envs.get(0)}\",client=\"${clients.get(0)}\",version=\"${version.get(0)},honeycombVersion=4.1.0\"} ${this.currentBuild.startTimeInMillis}' | curl --data-binary @- http://host.docker.internal:9092/metrics/job/clients")
+                    steps.sh("echo '${clients.get(1)}_2_metrics{env=\"${envs.get(1)}\",client=\"${clients.get(1)}\",version=\"${version.get(1)}\",honeycombVersion=\"5.0.0\", jenkinsURL=\"${this.env.JOB_NAME}\"} ${mytime}' | curl --data-binary @- http://host.docker.internal:9092/metrics/job/clients")
                     
-                    steps.sh("echo 'failed_2_builds{env=\"${envs.get(1)}\",client=\"${clients.get(2)}\",version=\"${version.get(2)}\",honeycombVersion=\"4.8.0\", jenkinsURL=\"${this.env.JOB_NAME}\"} 1' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
-                    steps.sh("echo 'failed_2_builds{env=\"${envs.get(4)}\",client=\"${clients.get(2)}\",version=\"${version.get(0)}\",honeycombVersion=\"4.8.0\", jenkinsURL=\"${this.env.JOB_NAME}\"} 1' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
-                    //steps.sh("echo 'some_metrics{env=\"${envs.get(randEnv)}\",client=\"${clients.get(randClient)}\",version=\"${version.get(randVer)}\"} ${currentBuild.startTimeInMillis}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
+                    steps.sh("echo 'failed_2_builds{env=\"${envs.get(1)}\",client=\"${clients.get(2)}\",version=\"${version.get(2)}\",honeycombVersion=\"4.8.0\", jenkinsURL=\"${this.env.JOB_NAME}\"} 1' | curl --data-binary @- http://host.docker.internal:9092/metrics/job/clients")
+                    steps.sh("echo 'failed_2_builds{env=\"${envs.get(4)}\",client=\"${clients.get(2)}\",version=\"${version.get(0)}\",honeycombVersion=\"4.8.0\", jenkinsURL=\"${this.env.JOB_NAME}\"} 1' | curl --data-binary @- http://host.docker.internal:9092/metrics/job/clients")
+                    //steps.sh("echo 'some_metrics{env=\"${envs.get(randEnv)}\",client=\"${clients.get(randClient)}\",version=\"${version.get(randVer)}\"} ${currentBuild.startTimeInMillis}' | curl --data-binary @- http://host.docker.internal:9092/metrics/job/clients")
 
-                    //steps.sh("echo '' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/clients")
+                    //steps.sh("echo '' | curl --data-binary @- http://host.docker.internal:9092/metrics/job/clients")
     
     //${clients[randClient]}_${envs[randEnv]}_metrics ${version}
     //${version}_metrics ${clients[randClient]}_${envs[randEnv]}
                     //Prom prom = new Prom()
-                    //prom.send_message("http://host.docker.internal:9091/metrics/job/some_job", "foobar 1")
+                    //prom.send_message("http://host.docker.internal:9092/metrics/job/some_job", "foobar 1")
                 }
             }
         }
@@ -70,7 +70,7 @@ pipeline {
             always {
                     script{
                         int dur = this.currentBuild.duration
-                        steps.sh("echo 'build_duration ${dur}' | curl --data-binary @- http://host.docker.internal:9091/metrics/job/some_job")
+                        steps.sh("echo 'build_duration ${dur}' | curl --data-binary @- http://host.docker.internal:9092/metrics/job/some_job")
                     }
             }
         }
